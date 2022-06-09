@@ -6,7 +6,7 @@ FUNCTION Invoke-ReplicateDirectoryChanges{
     Author: Eric Kuehn
         
     .DESCRIPTION
-    This leverages the Replicate Directory Changes right to harvest data out of Active Directory.  This can be used to gather information out of confidential attributes. Backlinked and constructed attributes (such as memberOf and canonicalName) cannot be pulled as these aren't real attributes.  The script returns a collection of objects, so it can be sent through the pipeline or into a variable.  Thanks to Ondrej Sevecek's script that paved the way https://www.sevecek.com/EnglishPages/Lists/Posts/Post.aspx?ID=80
+    This leverages the Replicate Directory Changes right to harvest data out of Active Directory.  This can be used to gather information out of confidential attributes. Backlinked and constructed attributes (such as memberOf and canonicalName) cannot be pulled as these aren't real attributes.  The script returns a collection of objects, so it can be sent through the pipeline or into a variable.  Thanks to Ondrej Sevecek's script that demonstrated how to use the LDAP DirSync class in PowerShell https://www.sevecek.com/EnglishPages/Lists/Posts/Post.aspx?ID=80
     
     .PARAMETER attributesToGet
     Enter which attributes you want returned in the dataset. By default, it will supply sAMAccountName and cn.
