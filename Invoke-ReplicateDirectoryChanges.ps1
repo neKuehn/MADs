@@ -119,8 +119,6 @@ FUNCTION Invoke-ReplicateDirectoryChanges{
     [DirectoryServices.Protocols.DirSyncRequestControl] $dirSyncCtr = New-Object DirectoryServices.Protocols.DirSyncRequestControl($dirSyncCookie, [DirectoryServices.Protocols.DirectorySynchronizationOptions]::None, [Int32]::MaxValue)
     [void] $ldapRequest.Controls.Add($dirSyncCtr)
     [bool] $moreProcessingRequired = $false
-    [bool] $firstRun = $true
-
     [int] $dirsyncBatch = 0
 
     #Connect to LDAP, do a Directory Sync request for information, and continue to get all objects meeting the search criteria
@@ -153,7 +151,6 @@ FUNCTION Invoke-ReplicateDirectoryChanges{
                 }
             }
         } while ($moreProcessingRequired)
-        $firstRun = $false
     } while ($ldapResponse.Entries.Count -gt 0)
 
     foreach ($ldapEntry in $ldapEntries){
