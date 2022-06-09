@@ -84,14 +84,14 @@ FUNCTION Invoke-ReplicateDirectoryChanges{
     if (!$Credentials -and $env:userdnsdomain){
         $userID = $env:userdnsdomain + '\' + $env:username
         [DirectoryServices.Protocols.LdapConnection] $ldapConn = New-Object DirectoryServices.Protocols.LdapConnection($DomainController)
-        $ldapConn.AuthType = [DirectoryServices.Protocols.AuthType]::Kerberos
     } else {
         #Prompt for AD Domain Name and Credentials
         $Creds = Get-Credential -Credential Domain\PW
         $userID = $Creds.UserName
         [DirectoryServices.Protocols.LdapConnection] $ldapConn = New-Object DirectoryServices.Protocols.LdapConnection($DomainController,$Creds)
-        $ldapConn.AuthType = [DirectoryServices.Protocols.AuthType]::Negotiate
     }
+    #now that we have the LDAP Connection, make sure it uses negotiate for auth
+    $ldapConn.AuthType = [DirectoryServices.Protocols.AuthType]::Negotiate
 
     #set config for LDAPs or have the regular LDAP use Kerberos Encryption (if possible)
     if (($LDAPs) -and ($DomainController -notlike '*:636')) { $DomainController = '{0}:636' -f $DomainController }
